@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block 'titulo' %} Login {% endblock %}
+
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+
+<div class="container">
+
+  {% if status == '1' %}
+    <div class="alert alert-danger" role="alert">
+      Email e/ou senha incorretos!
+    </div>
+  {% endif %}
+
+  {% if status == '2' %}
+    <div class="alert alert-danger" role="alert">
+      Para acessar o sistema faça login!
+    </div>
+  {% endif %}
+
+  <div class="row">
+
+    <div class="col-md">
+
+    </div>
+
+    <div class="col-md">
+
+      <h1 class="d-flex justify-content-center"> Faça Login </h1>
+      <hr>
+      
+      <form method="POST" action="{% url 'valida_login' %}">{% csrf_token %}
+
+        <label for="">Email:</label>
+        <input name="email" class="form-control" type="text" placeholder="Email...">
+
+        <label class="mt-3" for="">Senha:</label>
+        <input name="senha" class="form-control" type="password" placeholder="Senha...">
+
+        <div class="row justify-content-around mt-5">
+          <input class="btn btn-info" type="submit" value="Entrar">
+          <a href="{% url 'cadastro' %}" class="btn btn-warning">Cadastre-se</a>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="col-md">
+
+    </div>
+
+  </div>
+
+</div>
+
+
+{% endblock %}
