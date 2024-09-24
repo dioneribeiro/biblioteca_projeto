@@ -49,14 +49,21 @@ def valida_login(request):
     
     senha = sha256(senha.encode()).hexdigest()
     
-    usuario = Usuario.objects.filter(email = email).filter(senha = senha)
-    
-    if len(usuario) == 0:
-        return redirect('/auth/login/?status=1')
-    elif len(usuario) > 0:
-        request.session['usuario'] = usuario[0].id
-        return redirect(f'/livro/home/?id_usuario={request.session["usuario"]}')
+    usuario = Usuario.objects.filter(email = email, senha = senha).first()
 
+    if not usuario:
+        return redirect('/auth/login/?status=1')
+    
+    request.session['usuario'] = usuario.id
+    request.session['username'] = usuario.nome
+
+    return redirect('/livro/home/')    
+    
+    # if len(usuario) == 0:
+    #     return redirect('/auth/login/?status=1')
+    # elif len(usuario) > 0:
+    #     request.session['usuario'] = usuario[0].id
+    #     return redirect(f'/livro/home/?id_usuario={request.session["usuario"]}')
 
 def sair(request):
     request.session.flush()

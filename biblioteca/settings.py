@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'livro.context_processors.usuario_autenticado',
             ],
         },
     },
@@ -128,4 +129,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '7a0d-177-38-244-186.ngrok-free.app']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://e2e0-177-38-244-186.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://36d2-177-38-244-186.ngrok-free.app']

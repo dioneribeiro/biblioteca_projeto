@@ -4,7 +4,7 @@ from usuarios.models import Usuario
 
 class Categoria(models.Model):
     nome = models.CharField(max_length = 30)
-    descricao = models.TextField()
+    descricao = models.TextField(blank = True, null = True)
     
     def __str__(self) -> str:
         return self.nome

@@ -3,19 +3,15 @@
 {% block 'conteudo' %}
 <br>
 <br>
-
-
+<br>
 <div class="container">
-  <div class="d-flex justify-content-end position-fixed-top mt-5">
-    <a href="{% url 'sair' %}" class="btn btn-secondary text-light">Sair</a>
-  </div>
-
   <div class="row d-flex justify-content-center">
     {% for livro in livros %}
     <div class="card mr-md-3 mt-3" style="width: 18rem; background-color: #434d53">
       <div class="card-body text-light">
         <h5 class="card-title">{{livro.nome}}</h5>
         <h6 class="card-subtitle mt-2 mb-2">Autor: {{livro.autor}}</h6>
+        <h6 class="card-subtitle mt-2 mb-4 text-muted">Autor: {{livro.categoria}}</h6>
         <h6 class="card-subtitle mt-2 mb-4 text-muted">Data Cadastro: {{livro.data_cadastro}}</h6>
         <h5 class="card-subtitle mt-4 text-mute d-inline">Emprestado: </h5>
         {% if livro.emprestado %}
@@ -43,7 +39,7 @@
   </div>
   <br>
   <br>
-  <div class="text-center mt-4">
+  <div class="fixed-bottom text-center mb-3">
     <a href="{% url 'cadastrar_livro' %}" class="btn btn-primary"">Cadastrar Novo Livro</a>
   </div>
 </div>
