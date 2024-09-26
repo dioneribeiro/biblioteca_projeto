@@ -6,11 +6,15 @@ from hashlib import sha256
 
 
 def login(request):
+    if request.session.get('usuario'):
+        return redirect('/livro/home/')
     status = request.GET.get('status')
     return render(request, 'login.html', {'status': status})
 
 
 def cadastro(request):
+    if request.session.get('usuario'):
+        return redirect('/livro/home/')
     status = request.GET.get('status')
     return render(request, 'cadastro.html', {'status': status})
 
@@ -57,13 +61,8 @@ def valida_login(request):
     request.session['usuario'] = usuario.id
     request.session['username'] = usuario.nome
 
-    return redirect('/livro/home/')    
-    
-    # if len(usuario) == 0:
-    #     return redirect('/auth/login/?status=1')
-    # elif len(usuario) > 0:
-    #     request.session['usuario'] = usuario[0].id
-    #     return redirect(f'/livro/home/?id_usuario={request.session["usuario"]}')
+    return redirect('/livro/home/')
+
 
 def sair(request):
     request.session.flush()

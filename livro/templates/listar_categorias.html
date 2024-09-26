@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+<div class="container fixed-top " style="background-color: transparent; margin-top: 100px; margin-left: 0%; margin-right: 0%;">
+    <div>
+        <a href="{% url 'home' %}" class="text-light";">
+            <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
+            <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
+            </svg>
+            Voltar
+        </a>
+    </div>
+</div>
+
+<div class="container fixed-top " style="background-color: #6C757D; margin-top: 58px; height: 150px; padding-top: 20px;">
+    <h2>Lista de Categorias</h2>
+    <a href="{% url 'cadastrar_categoria' %}" class="btn btn-success mt-4">Adicionar Nova Categoria</a>
+</div>
+<div class="container fixed-top" style="background-color: #6C757D; margin-top: 200px;">
+    <table class="table table-striped">
+        <thead style="background-color: #a0a0a0;">
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="container" style="background-color: #6C757D; margin-top: 220px;">
+    <table class="table table-striped">
+        <tbody style="background-color: #a0a0a0;">
+            {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.nome }}</td>
+                    <td>{{ categoria.descricao }}</td>
+                    <td>
+                        <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma categoria cadastrada.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

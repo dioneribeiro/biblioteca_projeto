@@ -4,72 +4,76 @@
 <br>
 <br>
 <br>
-<div class="container">
-  <div class="d-flex justify-content-start position-fixed-top mt-2 mb-5">
-    <a href="{% url 'home' %}" class="text-light";">
-      <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
-        <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
-      </svg>
-      Voltar
-    </a>
-  </div>
 
-  <div class="card text-center" style="background-color: #434d53;">
-    <div class="card-header" style="background-color: #a0a0a0;">
-      <h2>Detalhes do Livro</h2>
+<div class="container fixed-top" style="background-color: transparent; margin-top: 100px; margin-left: 0%; margin-right: 0%;">
+    <div class="d-flex justify-content-start position-fixed-top mt-2 mb-5">
+        <a href="{% url 'home' %}" class="text-light">
+            <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
+                <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
+            </svg>
+            Voltar
+        </a>
     </div>
-    <div class="card-body text-black" style="background-color: #434d53;">
-      <h1 class="card-title">{{livro.nome}}</h1>
-      <h5>Autor: {{livro.autor}}</h5>
-      <h5>Co-Autor: {{livro.co_autor}}</h5>
-      <h5>Categoria: {{livro.categoria}}</h5>
-      <br>
-      <h5 class="card-subtitle mb-2 text-muted d-inline">Emprestado: </h5>
-      {% if livro.emprestado %}
-          <svg style="color: green;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
-            <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
-          </svg>
-        {% else %}
-          <svg style="color: red;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-x" viewBox="0 0 16 16">
-            <path d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708"/>
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
-            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
-          </svg>
-        {% endif %}
-    </div>
-    <div class="mb-2 mt-2" style="background-color: #434d53">
-      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#ExemploModalCentralizado">
-        Sinopse
-      </button>
-      <!-- Modal -->
-      <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="TituloModalCentralizado">{{livro.nome}}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              {{livro.sinopse}}
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
-            </div>
-          </div>
+</div>
+
+<div class="container" style="margin-top: 150px;">
+    <div class="card text-center" style="background-color: #a0a0a0;">
+        <div class="card-header text-light" style="background-color: #343A40;">
+            <h2>Detalhes do Livro</h2>
         </div>
-      </div>
+        <div class="card-body text-black" style="background-color: #a0a0a0;">
+            <h1 class="card-title">{{livro.nome}}</h1>
+            <h5>Autor: {{livro.autor}}</h5>
+            <h5>Co-Autor: {{livro.co_autor}}</h5>
+            <h5>Categoria: {{livro.categoria}}</h5>
+            <br>
+            <h5 class="card-subtitle mb-2 text-muted d-inline">Emprestado: </h5>
+            {% if livro.emprestado %}
+                <svg style="color: green;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
+                    <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                    <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            {% else %}
+                <svg style="color: red;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-x" viewBox="0 0 16 16">
+                    <path d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+                    <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            {% endif %}
+        </div>
+        <div class="mb-2 mt-2" style="background-color: #a0a0a0">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ExemploModalCentralizado">
+                Sinopse
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TituloModalCentralizado">{{livro.nome}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{livro.sinopse}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-footer text-body-secondary" style="background-color: #a0a0a0;">
-      Data de cadastro: {{livro.data_cadastro}}
+    <div class="card-footer text-light" style="background-color: #343A40;">
+        Data de cadastro: {{livro.data_cadastro}}
     </div>
-  </div>
-  <div class="text-center mt-4">
-    <a href="{% url 'editar_livro' livro.id %}" class="btn btn-primary">Editar Livro</a>
-  </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="{% url 'editar_livro' livro.id %}" class="btn btn-warning">Editar Livro</a>
 </div>
 
 {% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+<div class="container fixed-top " style="background-color: transparent; margin-top: 100px; margin-left: 0%; margin-right: 0%;">
+    <div class="d-flex justify-content-start position-fixed-top mt-2 mb-5">
+        <a href="{% url 'listar_categorias' %}" class="text-light";">
+        <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
+            <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
+        </svg>
+        Voltar
+        </a>
+    </div>
+</div>
+
+<div class="container mt-5" style="margin-top: 100px;">
+    <h2>{% if categoria %}Editar Categoria{% else %}Adicionar Nova Categoria{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{{ categoria.nome|default:'' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" required>{{ categoria.descricao|default:'' }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if categoria %}Atualizar{% else %}Cadastrar{% endif %}</button>
+    </form>
+</div>
+{% endblock %}

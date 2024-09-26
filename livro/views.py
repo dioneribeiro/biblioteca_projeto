@@ -1,15 +1,13 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from usuarios.models import Usuario
 from .models import Livros, Categoria
-from django.shortcuts import get_object_or_404
 from django.db.models import Q
-
 
 def home(request):
     if request.session.get('usuario'):
-        usuario = Usuario.objects.get(id = request.session['usuario'])
-        livros = Livros.objects.filter(usuario = usuario)
+        usuario = Usuario.objects.get(id=request.session['usuario'])
+        livros = Livros.objects.filter(usuario=usuario)
         
         query = request.GET.get('query')
         if query:
@@ -26,7 +24,7 @@ def home(request):
 
 def ver_livro(request, id):
     if request.session.get('usuario'):
-        livro = Livros.objects.get(id = id)
+        livro = Livros.objects.get(id=id)
         if request.session.get('usuario') == livro.usuario.id:
             return render(request, 'ver_livro.html', {'livro': livro})
         else:
@@ -36,12 +34,14 @@ def ver_livro(request, id):
 def cadastrar_livro(request):
     if request.session.get('usuario'):
         if request.method == 'POST':
+            img_capa = request.POST.get('img_capa')
             nome = request.POST.get('nome')
             autor = request.POST.get('autor')
-            sinopse = request.POST.get('sinopse', 'Sem informacao')
+            co_autor = request.POST.get('co_autor', 'Nenhum')
+            sinopse = request.POST.get('sinopse', 'Nenhum')
             categoria = request.POST.get('categoria')
             usuario = Usuario.objects.get(id=request.session['usuario'])
-            livro = Livros(nome=nome, autor=autor, usuario=usuario, categoria_id=categoria, sinopse=sinopse)
+            livro = Livros(img_capa=img_capa, nome=nome, autor=autor, co_autor=co_autor, usuario=usuario, categoria_id=categoria, sinopse=sinopse)
             livro.save()
             return redirect('home')
         categorias = Categoria.objects.all()
@@ -69,3 +69,38 @@ def editar_livro(request, id):
         return render(request, 'editar_livro.html', {'livro': livro, 'categorias': categorias})
     else:
         return HttpResponse('Você não tem permissão para editar este livro')
+
+
+def forms(request):
+    return render(request, 'form_template.html')
+
+
+def listar_categorias(request):
+    categorias = Categoria.objects.all()
+    if not categorias:
+        print("Nenhuma categoria encontrada")
+    return render(request, 'listar_categorias.html', {'categorias': categorias})
+
+
+def cadastrar_categoria(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        descricao = request.POST.get('descricao')
+
+        nova_categoria = Categoria(nome=nome, descricao=descricao)
+        nova_categoria.save()
+        return redirect('listar_categorias')
+
+    return render(request, 'cadastrar_categoria.html')
+
+
+def editar_categoria(request, id):
+    categoria = get_object_or_404(Categoria, id=id)
+    
+    if request.method == 'POST':
+        categoria.nome = request.POST.get('nome')
+        categoria.descricao = request.POST.get('descricao')
+        categoria.save()
+        return redirect('listar_categorias')
+
+    return render(request, 'cadastrar_categoria.html', {'categoria': categoria})

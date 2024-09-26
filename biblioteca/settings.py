@@ -73,16 +73,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'biblioteca.wsgi.application'
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "biblioteca",
+        "USER": "biblioteca",
+        "PASSWORD": "biblioteca",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'biblioteca.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -103,6 +115,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Expira a sessão quando o navegador é fechado
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Tempo de expiração da sessão em segundos (ex: 30 minutos)
+SESSION_COOKIE_AGE = 3000  # 50 minutos
+
+# Expira sessão após 5 minutos de inatividade
+SESSION_COOKIE_AGE = 600  # 10 minutos
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -119,14 +140,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Arquivos de media
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '7a0d-177-38-244-186.ngrok-free.app']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://36d2-177-38-244-186.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://1a6b-177-38-244-186.ngrok-free.app']
