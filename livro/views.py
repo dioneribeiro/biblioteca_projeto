@@ -4,6 +4,7 @@ from usuarios.models import Usuario
 from .models import Livros, Categoria
 from django.db.models import Q
 
+
 def home(request):
     if request.session.get('usuario'):
         usuario = Usuario.objects.get(id=request.session['usuario'])
@@ -34,14 +35,13 @@ def ver_livro(request, id):
 def cadastrar_livro(request):
     if request.session.get('usuario'):
         if request.method == 'POST':
-            img_capa = request.POST.get('img_capa')
             nome = request.POST.get('nome')
             autor = request.POST.get('autor')
             co_autor = request.POST.get('co_autor', 'Nenhum')
             sinopse = request.POST.get('sinopse', 'Nenhum')
             categoria = request.POST.get('categoria')
             usuario = Usuario.objects.get(id=request.session['usuario'])
-            livro = Livros(img_capa=img_capa, nome=nome, autor=autor, co_autor=co_autor, usuario=usuario, categoria_id=categoria, sinopse=sinopse)
+            livro = Livros(nome=nome, autor=autor, co_autor=co_autor, usuario=usuario, categoria_id=categoria, sinopse=sinopse)
             livro.save()
             return redirect('home')
         categorias = Categoria.objects.all()

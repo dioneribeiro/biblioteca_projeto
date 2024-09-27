@@ -3,13 +3,12 @@
 {% block 'titulo' %} Cadastros {% endblock %}
 
 
-{% block 'conteudo' %}
+{% block content %}
 <br>
 <br>
 
+<div class="container" style="margin-top: 150px;">
 
-<div class="container">
-  <br>
   {% if status == '0' %}
       <div class="alert alert-success" role="alert">
         Cadastro realizado com secésso!
@@ -63,7 +62,7 @@
         <input name="senha" class="form-control" type="password" placeholder="Senha...">
 
         <div class="row justify-content-around mt-5">
-          <input class="btn btn-info" type="submit" value="Cadastrar">
+          <input class="btn btn-primary" type="submit" value="Cadastrar">
           <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
         </div>
 

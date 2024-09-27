@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block 'conteudo' %}
+{% block content %}
 <br>
 <br>
 <br>
@@ -16,18 +16,13 @@
 </div>
 
 <div class="container mt-5" style="margin-top: 70px;">
-    <div class="card" style="background-color: #a0a0a0;">
-        <div class="card-header text-center" style="background-color: #434d53; color: white;">
+    <div class="card bg-light">
+        <div class="card-header text-center bg-dark text-light">
             <h2>Edição de Livro</h2>
         </div>
         <div class="card-body">
             <form method="POST">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="img_capa">Imagem:</label>
-                    <input type="file" name="img_capa" class="form-control" accept="{{ livro.img_capa }}">
-                </div>
-
                 <div class="form-group">
                     <label for="nome">Nome:</label>
                     <input type="text" name="nome" class="form-control" value="{{ livro.nome }}" required>
@@ -59,7 +54,7 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    <button type="submit" class="btn btn-primary w-100">Salvar</button>
                 </div>
             </form>
         </div>

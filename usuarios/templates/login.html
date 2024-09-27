@@ -3,12 +3,11 @@
 {% block 'titulo' %} Login {% endblock %}
 
 
-{% block 'conteudo' %}
+{% block content %}
 <br>
 <br>
-<br>
-<br>
-<div class="container">
+
+<div class="container" style="margin-top: 150px;">
 
   {% if status == '1' %}
     <div class="alert alert-danger" role="alert">
@@ -42,7 +41,7 @@
         <input name="senha" class="form-control" type="password" placeholder="Senha...">
 
         <div class="row justify-content-around mt-5">
-          <input class="btn btn-info" type="submit" value="Entrar">
+          <input class="btn btn-primary" type="submit" value="Entrar">
           <a href="{% url 'cadastro' %}" class="btn btn-warning">Cadastre-se</a>
         </div>
 

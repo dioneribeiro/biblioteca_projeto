@@ -14,7 +14,6 @@ class Livros(models.Model):
     nome = models.CharField(max_length = 100)
     autor = models.CharField(max_length = 30)
     co_autor = models.CharField(max_length = 30, blank = True, null = True)
-    img_capa = models.ImageField(blank = True, null = True)
     sinopse = models.TextField(blank = True, null = True)
     data_cadastro = models.DateField(default = date.today)
     emprestado = models.BooleanField(default = False)

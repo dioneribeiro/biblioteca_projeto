@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block 'conteudo' %}
+{% block content %}
 <br>
 <br>
 <br>
@@ -15,23 +15,26 @@
     </div>
 </div>
 
-<div class="container mt-5" style="background-color: #434d53; margin-top: 100px;">
-    <div>
-        <h2>Editar Categoria</h2>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" name="nome" class="form-control" value="{{ categoria.nome }}" required>
-            </div>
-            <div class="form-group">
-                <label for="descricao">Descrição:</label>
-                <textarea name="descricao" class="form-control" required>{{ categoria.descricao }}</textarea>
-            </div>
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
+<div class="d-flex justify-content-center" style="margin-top: 100px;">
+    <div class="card shadow-lg" style="width: 50%; max-width: 600px; background-color: #434d53;">
+        <div class="card-body">
+            <h2 class="text-center text-white mb-4">Editar Categoria</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label for="nome" class="form-label text-white">Nome:</label>
+                    <input type="text" name="nome" class="form-control" value="{{ categoria.nome }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="descricao" class="form-label text-white">Descrição:</label>
+                    <textarea name="descricao" class="form-control" rows="4" required>{{ categoria.descricao }}</textarea>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success w-100">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
 {% endblock %}
