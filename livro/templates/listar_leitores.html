@@ -15,8 +15,8 @@
 
 <div class="container fixed-top" style="background-color: #007272; margin-top: 58px;">
     <div class="text-light bg-dark" style="margin-top: 50px; height: 100px; padding-top: 15px;">
-        <h2 class="text-center ml-2 mr-2 pt-2 w-100">Lista de Categorias</h2>
-        <a href="{% url 'cadastrar_categoria' %}" class="btn btn-primary mb-2 w-100 mt-3">Adicionar Nova Categoria</a>
+        <h2 class="text-center ml-2 mr-2 pt-2 w-100">Lista de Leitores</h2>
+        <a href="{% url 'cadastrar_leitor' %}" class="btn btn-primary mb-2 w-100 mt-3">Adicionar Novo Leitor</a>
     </div>
 </div>
 
@@ -25,7 +25,9 @@
         <thead class="bg-dark text-light">
             <tr>
                 <th>Nome</th>
-                <th>Descrição</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -34,17 +36,19 @@
 <div class="container" style="background-color: #007272; margin-top: 300px;">
     <table class="table table-striped">
         <tbody class="bg-light text-dark">
-            {% for categoria in categorias %}
+            {% for leitor in leitores %}
                 <tr>
-                    <td>{{ categoria.nome }}</td>
-                    <td>{{ categoria.descricao }}</td>
+                    <td>{{ leitor.nome }}</td>
+                    <td>{{ leitor.email }}</td>
+                    <td>{{ leitor.telefone }}</td>
+                    <td>{{ leitor.endereco }}</td>
                     <td>
-                        <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-warning">Editar</a>
+                        <a href="{% url 'editar_leitor' leitor.id %}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="3">Nenhuma categoria cadastrada.</td>
+                    <td colspan="5">Nenhum leitor cadastrado.</td>
                 </tr>
             {% endfor %}
         </tbody>

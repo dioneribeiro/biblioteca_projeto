@@ -30,13 +30,14 @@
             <button class="btn btn-outline-secondary mr-5" type="submit">Buscar</button>
           </form>
 
-          <a href="{% url 'home' %}" class="nav-link btn btn-outline-primary btn-sm mr-3" aria-current="page" href="#">Livros</a>
-          <a href="{% url 'cadastrar_livro' %}" class="nav-link btn btn-outline-primary btn-sm mr-3" aria-current="page" href="#">Cadastrar Livro</a>
-          <a href="{% url 'listar_categorias' %}" class="nav-link btn btn-outline-primary btn-sm" href="#">Categorias</a>
+          <a href="{% url 'home' %}" class="nav-link btn btn-outline-primary btn-sm mr-2" aria-current="page" href="#">Livros</a>
+          <a href="{% url 'cadastrar_livro' %}" class="nav-link btn btn-outline-primary btn-sm mr-2" aria-current="page" href="#">Cadastrar Livro</a>
+          <a href="{% url 'listar_categorias' %}" class="nav-link btn btn-outline-primary btn-sm mr-2" href="#">Categorias</a>
+          <a href="{% url 'listar_leitores' %}" class="nav-link btn btn-outline-primary btn-sm" href="#">Leitores</a>
 
           <div class="ml-auto d-flex align-items-center">
             <p class="navbar-brand mb-0 text-light">{{ request.session.username}}</p>
-            <a href="{% url 'sair' %}" class="navbar-brand mb-0 btn btn-outline-secondary text-light">Sair</a>
+            <a href="{% url 'sair' %}" class="navbar-brand mb-0 mr-0 btn btn-outline-secondary text-light">Sair</a>
           </div>
         {% endif %}
       </div>

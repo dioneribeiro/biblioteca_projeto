@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<br>
-<br>
-<br>
 
-<div class="container fixed-top" style="background-color: transparent; margin-top: 100px; margin-left: 0%; margin-right: 0%;">
-    <div class="d-flex justify-content-start position-fixed-top mt-2 mb-5">
+<div class="container fixed-top" style="background-color: transparent; margin-top: 80px;">
+    <div class="d-flex justify-content-start mt-2 mb-5">
         <a href="{% url 'home' %}" class="text-light">
             <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
                 <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
@@ -16,7 +13,7 @@
     </div>
 </div>
 
-<div class="container" style="margin-top: 150px;">
+<div class="container" style="margin-top: 130px;">
     <div class="card text-center" style="background-color: #FFFFFF;">
         <div class="card-header text-light bg-dark">
             <h2>Detalhes do Livro</h2>
@@ -26,16 +23,16 @@
             <h5>Autor: {{livro.autor}}</h5>
             <h5>Co-Autor: {{livro.co_autor}}</h5>
             <h5>Categoria: {{livro.categoria}}</h5>
-            <br>
-            <h5 class="card-subtitle mb-2 text-muted d-inline">Emprestado: </h5>
+            <h5 class="card-subtitle mb-2 text-muted d-inline mt-3">Emprestado: </h5>
             {% if livro.emprestado %}
-                <svg style="color: green;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
+                <svg style="color: green;" aria-label="Livro emprestado" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
                     <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
                     <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
                 </svg>
+                <h6>Leitor: {{ livro.leitor_emprestado.nome }}</h6>
             {% else %}
-                <svg style="color: red;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-x" viewBox="0 0 16 16">
+                <svg style="color: red;" aria-label="Livro disponível" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-x" viewBox="0 0 16 16">
                     <path d="M6.146 8.146a.5.5 0 0 1 .708 0L8 9.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 0 1 0-.708"/>
                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
                     <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z"/>
