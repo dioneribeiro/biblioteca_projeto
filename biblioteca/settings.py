@@ -169,3 +169,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app']
 
 # CSRF_TRUSTED_ORIGINS = ['https://1a6b-177-38-244-186.ngrok-free.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://biblioteca-gerenciamento.up.railway.app']
