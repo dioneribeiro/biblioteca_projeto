@@ -11,6 +11,7 @@ class Leitor(models.Model):
     cpf = models.CharField(max_length=13, blank=True, null=True)
     data_cadastro = models.DateField(default=date.today)
     livro = models.ManyToManyField('Livros', blank=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.nome
@@ -19,6 +20,7 @@ class Leitor(models.Model):
 class Categoria(models.Model):
     nome = models.CharField(max_length=30)
     descricao = models.TextField(blank=True, null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return self.nome

@@ -6,6 +6,7 @@ from .models import Livros, Leitor, Categoria
 from django.db.models import Q
 
 
+
 def home(request):
     if request.session.get('usuario'):
         usuario = Usuario.objects.get(id=request.session['usuario'])
@@ -24,6 +25,7 @@ def home(request):
         return redirect('/auth/login/?status=2')
     
 
+
 def ver_livro(request, id):
     if request.session.get('usuario'):
         livro = Livros.objects.get(id=id)
@@ -32,6 +34,8 @@ def ver_livro(request, id):
         else:
             return HttpResponse('Você não tem permissão para ver este livro')
     return redirect('/auth/login/?status=2')
+
+
 
 def cadastrar_livro(request):
     if request.session.get('usuario'):
@@ -50,6 +54,7 @@ def cadastrar_livro(request):
     else:
         return redirect('/auth/login/?status=2')
     
+
 
 def editar_livro(request, id):
     livro = get_object_or_404(Livros, id=id)
@@ -74,15 +79,19 @@ def editar_livro(request, id):
     return render(request, 'editar_livro.html', {'livro': livro, 'leitores': leitores, 'categorias': categorias})
 
 
+
 def forms(request):
     return render(request, 'form_template.html')
 
 
+
 def listar_categorias(request):
-    categorias = Categoria.objects.all()
-    if not categorias:
-        print("Nenhuma categoria encontrada")
-    return render(request, 'listar_categorias.html', {'categorias': categorias})
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id=request.session['usuario'])
+        categorias = Categoria.objects.filter(usuario=usuario)
+        return render(request, 'listar_categorias.html', {'categorias': categorias})
+    return redirect('/auth/login/?status=2')
+
 
 
 def cadastrar_categoria(request):
@@ -90,7 +99,12 @@ def cadastrar_categoria(request):
         nome = request.POST.get('nome')
         descricao = request.POST.get('descricao')
 
-        nova_categoria = Categoria(nome=nome, descricao=descricao)
+        nova_categoria = Categoria(
+            nome=nome,
+            descricao=descricao,
+            usuario=Usuario.objects.get(id=request.session['usuario'])
+            )
+        
         nova_categoria.save()
         return redirect('listar_categorias')
 
@@ -118,7 +132,15 @@ def cadastrar_leitor(request):
         rg = request.POST.get('rg')
         cpf = request.POST.get('cpf')
 
-        leitor = Leitor(nome=nome, email=email, telefone=telefone, endereco=endereco, rg=rg, cpf=cpf)
+        leitor = Leitor(
+            nome=nome,
+            email=email,
+            telefone=telefone,
+            endereco=endereco,
+            rg=rg,
+            cpf=cpf,
+            usuario=Usuario.objects.get(id=request.session['usuario'])
+        )
         leitor.save()
 
         return redirect('listar_leitores')
@@ -128,7 +150,6 @@ def cadastrar_leitor(request):
 
 def editar_leitor(request, id):
     leitor = get_object_or_404(Leitor, id=id)
-
     if request.method == 'POST':
         leitor.nome = request.POST.get('nome', '').strip()
         leitor.email = request.POST.get('email', '').strip()
@@ -148,8 +169,8 @@ def editar_leitor(request, id):
 
 
 def listar_leitores(request):
-    leitores = Leitor.objects.all()
-
-    if not leitores.exists():
-        no_leitores_message = "Nenhum leitor encontrado."
-    return render(request, 'listar_leitores.html', {'leitores': leitores, 'no_leitores_message': no_leitores_message if not leitores.exists() else None})
+    if request.session.get('usuario'):
+        usuario = Usuario.objects.get(id=request.session['usuario'])
+        leitores = Leitor.objects.filter(usuario=usuario)
+        return render(request, 'listar_leitores.html', {'leitores': leitores})
+    return redirect('/auth/login/?status=2')
