@@ -278,8 +278,8 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 ## 👨‍💻 Autor
 
 **Seu Nome**
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- LinkedIn: [Seu LinkedIn](https://linkedin.com/in/seu-perfil)
+- GitHub: [@seu-usuario](https://github.com/dioneribeiro)
+- LinkedIn: [Seu LinkedIn](https://linkedin.com/in/dione-ribeiro-niza-0b0814113)
 
 ## 🙏 Agradecimentos
 
