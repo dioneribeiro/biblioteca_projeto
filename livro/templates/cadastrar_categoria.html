@@ -1,38 +1,122 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="container fixed-top " style="background-color: transparent; margin-top: 100px;">
-    <div class="d-flex justify-content-start mt-2 mb-5">
-        <a href="{% url 'listar_categorias' %}" class="text-light">
-        <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
-            <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
-        </svg>
-        Voltar
-        </a>
+<div class="container-fluid">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="search-container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center">
+                            <a href="{% url 'listar_categorias' %}" class="btn btn-outline-secondary me-3">
+                                <i class="bi bi-arrow-left me-2"></i>Voltar
+                            </a>
+                            <div>
+                                <h2 class="mb-2 text-primary">
+                                    <i class="bi bi-tag me-2"></i>
+                                    {% if categoria %}Editar Categoria{% else %}Nova Categoria{% endif %}
+                                </h2>
+                                <p class="text-muted mb-0">
+                                    {% if categoria %}Atualize as informações da categoria{% else %}Crie uma nova categoria para organizar seus livros{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="me-3">
+                                <h4 class="text-primary mb-0">
+                                    <i class="bi bi-tags me-2"></i>
+                                </h4>
+                                <small class="text-muted">Categoria</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="d-flex justify-content-center" style="margin-top: 200px;">
-    <div class="card shadow-lg" style="width: 50%; max-width: 600px;">
-        <div class="card-body">
-            <h2 class="text-center mb-4">
-                {% if categoria %}Editar Categoria{% else %}Adicionar Nova Categoria{% endif %}
-            </h2>
-            <form method="post">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="{{ categoria.nome|default:'' }}" required>
+
+    <!-- Form Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card">
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Nome da Categoria -->
+                        <div class="mb-4">
+                            <label for="nome" class="form-label fw-bold">
+                                <i class="bi bi-tag me-2 text-primary"></i>Nome da Categoria
+                            </label>
+                            <input type="text" class="form-control form-control-lg" 
+                                   id="nome" name="nome" 
+                                   value="{{ categoria.nome|default:'' }}" 
+                                   required 
+                                   placeholder="Ex: Ficção, Não-ficção, Romance...">
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Escolha um nome descritivo para facilitar a organização
+                            </div>
+                        </div>
+
+                        <!-- Descrição -->
+                        <div class="mb-4">
+                            <label for="descricao" class="form-label fw-bold">
+                                <i class="bi bi-file-text me-2 text-primary"></i>Descrição
+                            </label>
+                            <textarea class="form-control" id="descricao" name="descricao" 
+                                      rows="4" 
+                                      placeholder="Descreva brevemente o tipo de livros que pertencem a esta categoria">{{ categoria.descricao|default:'' }}</textarea>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Opcional: Adicione uma descrição para melhor organização
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-check-circle me-2"></i>
+                                {% if categoria %}Salvar Alterações{% else %}Criar Categoria{% endif %}
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricao" name="descricao" rows="4">{{ categoria.descricao|default:'' }}</textarea>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">
-                    {% if categoria %}Salvar{% else %}Cadastrar{% endif %}
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .form-control-lg, .form-select-lg {
+        padding: 0.75rem 1rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+    
+    .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+</style>
 {% endblock %}

@@ -1,58 +1,279 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="search-container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center">
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary me-3">
+                                <i class="bi bi-arrow-left me-2"></i>Voltar
+                            </a>
+                            <div>
+                                <h2 class="mb-2 text-primary">
+                                    <i class="bi bi-people me-2"></i>
+                                    Leitores Cadastrados
+                                </h2>
+                                <p class="text-muted mb-0">
+                                    Gerencie todos os leitores da biblioteca
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="me-3">
+                                <h4 class="text-primary mb-0">{{ leitores.count }}</h4>
+                                <small class="text-muted">Total de Leitores</small>
+                            </div>
+                            <div>
+                                <a href="{% url 'cadastrar_leitor' %}" class="btn btn-primary">
+                                    <i class="bi bi-person-plus me-2"></i>Novo Leitor
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="container fixed-top " style="background-color: transparent; margin-top: 90px; margin-left: 250px;">
-    <div class="container">
-        <a href="{% url 'home' %}" class="text-light">
-        <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#e8eaed">
-            <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/>
-        </svg>
-        Voltar
-        </a>
+    <!-- Readers Grid -->
+    <div class="row">
+        {% for leitor in leitores %}
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <!-- Reader Icon -->
+                        <div class="text-center mb-3">
+                            <div class="reader-icon-container">
+                                <i class="bi bi-person-circle text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+
+                        <!-- Reader Information -->
+                        <div class="flex-grow-1">
+                            <h5 class="card-title text-center mb-3 fw-bold text-primary">
+                                {{ leitor.nome }}
+                            </h5>
+                            
+                            <div class="reader-details">
+                                <div class="detail-item mb-2">
+                                    <i class="bi bi-envelope text-muted me-2"></i>
+                                    <span class="text-muted">Email:</span>
+                                    <strong>{{ leitor.email }}</strong>
+                                </div>
+                                
+                                {% if leitor.telefone %}
+                                    <div class="detail-item mb-2">
+                                        <i class="bi bi-telephone text-muted me-2"></i>
+                                        <span class="text-muted">Telefone:</span>
+                                        <strong>{{ leitor.telefone }}</strong>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if leitor.endereco %}
+                                    <div class="detail-item mb-2">
+                                        <i class="bi bi-geo-alt text-muted me-2"></i>
+                                        <span class="text-muted">Endereço:</span>
+                                        <strong>{{ leitor.endereco|truncatechars:30 }}</strong>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if leitor.rg %}
+                                    <div class="detail-item mb-2">
+                                        <i class="bi bi-card-text text-muted me-2"></i>
+                                        <span class="text-muted">RG:</span>
+                                        <strong>{{ leitor.rg }}</strong>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if leitor.cpf %}
+                                    <div class="detail-item mb-3">
+                                        <i class="bi bi-card-text text-muted me-2"></i>
+                                        <span class="text-muted">CPF:</span>
+                                        <strong>{{ leitor.cpf }}</strong>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="text-center mt-auto">
+                            <div class="btn-group w-100" role="group">
+                                <a href="{% url 'editar_leitor' leitor.id %}" class="btn btn-outline-primary">
+                                    <i class="bi bi-pencil me-2"></i>Editar
+                                </a>
+                                <button type="button" class="btn btn-outline-info" 
+                                        onclick="showReaderDetails('{{ leitor.nome }}', '{{ leitor.email }}', '{{ leitor.telefone }}', '{{ leitor.endereco }}', '{{ leitor.rg }}', '{{ leitor.cpf }}')">
+                                    <i class="bi bi-eye me-2"></i>Ver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <!-- Empty State -->
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <div class="empty-state">
+                        <i class="bi bi-people text-muted" style="font-size: 5rem; opacity: 0.5;"></i>
+                        <h3 class="mt-4 text-muted">Nenhum leitor cadastrado</h3>
+                        <p class="text-muted mb-4">
+                            Comece cadastrando o primeiro leitor na biblioteca
+                        </p>
+                        <a href="{% url 'cadastrar_leitor' %}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-person-plus me-2"></i>Cadastrar Primeiro Leitor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 
-<div class="container fixed-top" style="background-color: #007272; margin-top: 58px;">
-    <div class="text-light bg-dark" style="margin-top: 50px; height: 100px; padding-top: 15px;">
-        <h2 class="text-center ml-2 mr-2 pt-2 w-100">Lista de Leitores</h2>
-        <a href="{% url 'cadastrar_leitor' %}" class="btn btn-primary mb-2 w-100 mt-3">Adicionar Novo Leitor</a>
+<!-- Modal for Reader Details -->
+<div class="modal fade" id="readerModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-person-circle me-2"></i>
+                    Detalhes do Leitor
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="readerDetails"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container fixed-top" style="background-color: #007272; margin-top: 230px; padding-top: 10px;">
-    <table class="table table-striped">
-        <thead class="bg-dark text-light">
-            <tr>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Endereço</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-    </table>
-</div>
-<div class="container" style="background-color: #007272; margin-top: 300px;">
-    <table class="table table-striped">
-        <tbody class="bg-light text-dark">
-            {% for leitor in leitores %}
-                <tr>
-                    <td>{{ leitor.nome }}</td>
-                    <td>{{ leitor.email }}</td>
-                    <td>{{ leitor.telefone }}</td>
-                    <td>{{ leitor.endereco }}</td>
-                    <td>
-                        <a href="{% url 'editar_leitor' leitor.id %}" class="btn btn-warning">Editar</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5">Nenhum leitor cadastrado.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+<style>
+    .reader-icon-container {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    .reader-details {
+        font-size: 0.9rem;
+    }
+    
+    .detail-item {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .detail-item strong {
+        margin-left: 4px;
+        word-break: break-word;
+    }
+    
+    .empty-state {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .card {
+        border: none;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-group .btn {
+        border-radius: 8px;
+        margin: 0 2px;
+    }
+    
+    .btn-outline-primary {
+        border-color: #667eea;
+        color: #667eea;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #667eea;
+        border-color: #667eea;
+    }
+    
+    .btn-outline-info {
+        border-color: #17a2b8;
+        color: #17a2b8;
+    }
+    
+    .btn-outline-info:hover {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+</style>
 
+<script>
+    function showReaderDetails(nome, email, telefone, endereco, rg, cpf) {
+        const modal = new bootstrap.Modal(document.getElementById('readerModal'));
+        const detailsDiv = document.getElementById('readerDetails');
+        
+        let detailsHtml = `
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold text-primary">Nome:</label>
+                    <p>${nome}</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold text-primary">Email:</label>
+                    <p>${email}</p>
+                </div>
+                ${telefone ? `
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold text-primary">Telefone:</label>
+                    <p>${telefone}</p>
+                </div>
+                ` : ''}
+                ${endereco ? `
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold text-primary">Endereço:</label>
+                    <p>${endereco}</p>
+                </div>
+                ` : ''}
+                ${rg ? `
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold text-primary">RG:</label>
+                    <p>${rg}</p>
+                </div>
+                ` : ''}
+                ${cpf ? `
+                <div class="col-md-6 mb-3">
+                    <label class="fw-bold text-primary">CPF:</label>
+                    <p>${cpf}</p>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        
+        detailsDiv.innerHTML = detailsHtml;
+        modal.show();
+    }
+</script>
 {% endblock %}

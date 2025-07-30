@@ -1,61 +1,126 @@
 {% extends 'base.html' %}
 
-{% block 'titulo' %} Login {% endblock %}
-
+{% block 'titulo' %}Login{% endblock %}
 
 {% block content %}
-<br>
-<br>
-
-<div class="container" style="margin-top: 150px;">
-
-  {% if status == '1' %}
-    <div class="alert alert-danger" role="alert">
-      Email e/ou senha incorretos!
-    </div>
-  {% endif %}
-
-  {% if status == '2' %}
-    <div class="alert alert-danger" role="alert">
-      Para acessar o sistema faça login!
-    </div>
-  {% endif %}
-
-  <div class="row">
-
-    <div class="col-md">
-
-    </div>
-
-    <div class="col-md">
-
-      <h1 class="d-flex justify-content-center"> Faça Login </h1>
-      <hr>
-      
-      <form method="POST" action="{% url 'valida_login' %}">{% csrf_token %}
-
-        <label for="">Email:</label>
-        <input name="email" class="form-control" type="text" placeholder="Email...">
-
-        <label class="mt-3" for="">Senha:</label>
-        <input name="senha" class="form-control" type="password" placeholder="Senha...">
-
-        <div class="row justify-content-around mt-5">
-          <input class="btn btn-primary" type="submit" value="Entrar">
-          <a href="{% url 'cadastro' %}" class="btn btn-warning">Cadastre-se</a>
+<div class="container-fluid">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="search-container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h2 class="mb-2 text-primary">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                                    Acessar Sistema
+                                </h2>
+                                <p class="text-muted mb-0">
+                                    Faça login para gerenciar sua biblioteca
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex justify-content-end">
+                            <div class="me-3">
+                                <h4 class="text-primary mb-0">
+                                    <i class="bi bi-shield-lock me-2"></i>
+                                </h4>
+                                <small class="text-muted">Seguro</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-      </form>
-
     </div>
 
-    <div class="col-md">
+    <!-- Form Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card">
+                <div class="card-body p-4">
+                    
+                    <!-- Alert Messages -->
+                    {% if status == '1' %}
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Email e/ou senha incorretos!
+                        </div>
+                    {% endif %}
 
+                    {% if status == '2' %}
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Para acessar o sistema faça login!
+                        </div>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'valida_login' %}">
+                        {% csrf_token %}
+                        
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-bold">
+                                <i class="bi bi-envelope me-2 text-primary"></i>Email
+                            </label>
+                            <input name="email" class="form-control form-control-lg" 
+                                   type="email" placeholder="exemplo@email.com" required>
+                        </div>
+
+                        <!-- Senha -->
+                        <div class="mb-4">
+                            <label for="senha" class="form-label fw-bold">
+                                <i class="bi bi-lock me-2 text-primary"></i>Senha
+                            </label>
+                            <input name="senha" class="form-control form-control-lg" 
+                                   type="password" placeholder="Digite sua senha" required>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+                            </button>
+                            <a href="{% url 'cadastro' %}" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-person-plus me-2"></i>Criar conta
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-  </div>
-
 </div>
 
-
+<style>
+    .form-control {
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+    
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .form-control-lg {
+        padding: 0.75rem 1rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+    
+    .alert {
+        border-radius: 12px;
+        border: none;
+    }
+</style>
 {% endblock %}
